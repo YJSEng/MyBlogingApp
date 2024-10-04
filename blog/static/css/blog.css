@@ -1,0 +1,99 @@
+/* Blog Header: Display image and title in a single line */
+.blog-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-direction: row;
+}
+
+.blog-header img {
+    
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  width: 50px;
+        /* Set a fixed width */
+   height: 50px;
+    /* Prevents the image from shrinking */
+}
+
+.blog-header img.blog-image {
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    width: 90px;
+    height: 90px;
+    
+    /* Increase the width */
+    
+    /* Increase the height */
+}
+
+.blog-header h2 {
+    margin: 0;
+    font-size: 1.5em;
+    white-space: nowrap;
+    /* Prevent the title from wrapping */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* Adds ellipsis if the title is too long */
+}
+
+/* Blog card for a single blog post */
+.blog-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+   padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    
+}
+  /* Add some spacing below the image */
+
+
+/* Date styling */
+p.date {
+    color: #060270;
+    font-family: georgia, serif;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.read-more {
+    align-self: flex-start;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.read-more:hover {
+    background-color: #0056b3;
+}
+
+.read-more:focus {
+    outline: 2px solid #0056b3;
+    outline-offset: 2px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+.blog-header img.blog-image1 {
+    
+    width: 40%;
+    height: 10%;
+
+    /* Increase the width */
+
+    /* Increase the height */
+}
+

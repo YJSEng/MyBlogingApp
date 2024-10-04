@@ -1,0 +1,51 @@
+ {% extends "blog/base.html" %}
+ {% block title %}{{ post.title |title}}{% endblock %}
+ {% block content %}
+ <div class="blog-card">
+     
+
+    <div class="blog-content">
+    <img src='{{post.image.url }}' alt="Blog Image"  class="blog-image1">
+  <h1>{{ post.title |title}}</h1>
+  <p class="date">
+    Published {{ post.publish }} 
+  </p>
+  {{ post.body|linebreaks }}
+</div>
+</div>
+   <p>
+    <a href="{% url "blog:post_share" post.id %}">
+      Share this post
+    </a>
+  </p>
+   {% with comments.count as total_comments %}
+    <h2>
+      {{ total_comments }} Comment{{ total_comments|pluralize }}
+    </h2>
+  {% endwith %}
+  <div class="blog-list">
+ <div class="blog-card">
+    
+    <div class="blog-content">
+    {% for comment in comments %}
+    <div class="comment">
+       <p class="info">
+        Comment {{ forloop.counter }} by {{ comment.name }}
+        {{ comment.created }}
+      </p>
+      {{ comment.body|linebreaks }}
+    </div>
+  {% empty %}
+    <p>There are no comments.</p>
+  {% endfor %}
+  </div>
+</div>
+</div>
+&nbsp;
+ <div class="blog-card">
+    
+    <div class="blog-content">
+   {% include "blog/post/includes/comment_form.html" %}
+    </div>
+</div>
+ {% endblock %}

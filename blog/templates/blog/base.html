@@ -1,0 +1,23 @@
+ {% load static %}
+ <!DOCTYPE html>
+ <html>
+ <head>
+  <title>{% block title %}{% endblock %}</title>
+  <link href="{% static "css/blog.css" %}" rel="stylesheet">
+ </head>
+ <body>
+<a href="{% url "blog:post_list" %}">
+ <h1> YJS BLOG</h1>
+</a>
+  <div id="content">
+    {% block content %}
+    {% endblock %}
+  </div>
+  <!--<div id="sidebar">
+    <a href="{% url "blog:post_list" %}">
+    <h2>YJS blog</h2>
+    </a>
+     <p>Do Good to Others Nature Will do Best For You.</p>
+  </div> -->
+ </body>
+ </html>
