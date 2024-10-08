@@ -97,3 +97,59 @@ p.date {
     /* Increase the height */
 }
 
+.flex-container {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    
+    
+}
+.text-right {
+    text-align: right;
+}
+
+.flex-container h1 {
+    margin-right: 20px;
+    /* Adjust spacing between the headings */
+}
+/* Style for the message container */
+/* Style for the message container - center alignment */
+.message-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* General style for alerts */
+.alert {
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Alert success message */
+.alert-success {
+    background-color: #4caf50;
+    /* Green for success */
+}
+
+/* Fade-out animation for message */
+ .alert.fade-out {
+    opacity: 0;
+    transform: translateY(-20px);
+}

@@ -1,0 +1,16 @@
+{% extends "blog/base.html" %}
+ {% block title %}Submit Post{% endblock %}
+ {% block content %}
+  {% if messages %}
+    <div class="message-container">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+
+  {% endblock %}
+

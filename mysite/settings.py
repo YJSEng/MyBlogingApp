@@ -32,7 +32,7 @@ ALLOWED_HOSTS = ['YJS.pythonanywhere.com']
 
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
-ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = []
 
 
 # Application definition

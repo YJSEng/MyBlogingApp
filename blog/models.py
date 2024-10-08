@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.utils.text import slugify
 
 
 class PublishedManager(models.Manager):
@@ -18,16 +19,29 @@ class Post(models.Model):
     title=models.CharField(max_length=200)
     slug=models.CharField(max_length=200,unique_for_date='publish')
     body=models.TextField()
-   
+    author = models.CharField(max_length=80)
+    email = models.EmailField()
     publish=models.DateTimeField(default=timezone.now)
     created=models.DateTimeField(auto_now_add=True)
     updated=models.DateTimeField(auto_now=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
+   # author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
     status=models.CharField(max_length=2,choices=Status.choices,default=Status.DRAFT)
     image = models.ImageField(upload_to='products/')
 
     objects = models.Manager() # The default manager.
     published = PublishedManager()
+    def save(self, *args, **kwargs):
+        # Auto-generate slug from title if it's not already set
+        if not self.slug:
+            base_slug = slugify(self.title)
+            slug = base_slug
+            # Ensure slug uniqueness by appending a number if needed
+            counter = 1
+            while Post.objects.filter(slug=slug).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = slug
+        super().save(*args, **kwargs)
 
     class Meta:
         ordering=['-publish']

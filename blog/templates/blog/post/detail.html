@@ -1,6 +1,7 @@
  {% extends "blog/base.html" %}
  {% block title %}{{ post.title |title}}{% endblock %}
  {% block content %}
+ 
  <div class="blog-card">
      
 
@@ -8,7 +9,7 @@
     <img src='{{post.image.url }}' alt="Blog Image"  class="blog-image1">
   <h1>{{ post.title |title}}</h1>
   <p class="date">
-    Published {{ post.publish }} 
+    Published {{ post.publish }} by {{post.author}}
   </p>
   {{ post.body|linebreaks }}
 </div>

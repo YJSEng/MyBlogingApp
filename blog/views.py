@@ -1,11 +1,13 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,redirect
 from django.http import Http404
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from django.views.generic import ListView
 from .models import Post,Comment
-from .forms import EmailPostForm,CommentForm
-from django.core.mail import send_mail
+from .forms import EmailPostForm,CommentForm,SubmitForm
+from django.core.mail import send_mail,EmailMessage
 from django.views.decorators.http import require_POST
+from django.conf import settings
+from django.contrib import messages
 
 @require_POST
 def post_comment(request, post_id):
@@ -31,6 +33,43 @@ class PostListView(ListView):
     paginate_by = 3
     template_name = 'blog/post/list.html'
 # Create your views here.
+
+def post_submit(request):
+    if request.method == 'POST':
+        # Handle form submission
+        form = SubmitForm(request.POST,request.FILES)
+        if form.is_valid():
+            # Process the form data (e.g., save, send email)
+            # Redirect to a success page or another view
+            prepopulated_fields = {'slug': ('title',)}
+            post = form.save(commit=False)
+          #  post.author = request.user 
+            post.save()
+            email = EmailMessage(
+                subject='New Post Submission: Awaiting Approval',  # Email subject
+                body=f'Post Title: {post.title}\n\nPost Author: {post.author}\n\nPlease review and approve this post.',  # Email body
+                from_email=settings.DEFAULT_FROM_EMAIL,  # From email (configured in settings)
+                to=['yawarjaleesshamsi@gmail.com'],  # Main recipient email
+                cc=[post.email],  # CC recipient(s)
+            )
+            
+            # Send the email
+            email.send(fail_silently=False)
+
+
+          #  return redirect('blog:post_list')  
+            messages.success(request, 'Thanks for submitting the post. It is sent for admin approval and will be viewed once approved.')
+            return redirect('blog:post_list')
+        
+        else:
+            print(form.errors) 
+        # Example success redirect
+    else:
+        # Show an empty form for GET request
+        form = SubmitForm()
+    
+    # Render the form in the template
+    return render(request, 'blog/post/share1.html', {'form': form})
 
 def post_list(request,post):
     post_list = Post.published.all()
@@ -93,3 +132,4 @@ def post_share(request, post_id):
     return render(request, 'blog/post/share.html', {'post': post,
  'form': form,
  'sent':sent})
+
